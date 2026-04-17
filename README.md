@@ -1,6 +1,6 @@
 # Job Search Personalizer
 
-A clean, presentation-ready frontend interface that simulates an Information Retrieval (IR) and NLP-based job recommendation system. 
+A clean frontend interface that simulates an Information Retrieval (IR) and NLP-based job recommendation system. 
 
 It takes a user's resume as a "Query" and returns ranked job postings as "Documents" based on mock similarity scoring. 
 
