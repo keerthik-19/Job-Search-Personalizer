@@ -1,0 +1,262 @@
+/* 
+  ========================================================
+  JOB SEARCH PERSONALIZER - STYLES
+  We use CSS to make our app look exactly like the slides.
+  ======================================================== 
+*/
+
+/* --- 1. CSS VARIABLES (Color Palette) --- 
+   Variables make it easy to reuse our specific slide deck colors. */
+:root {
+    --bg-main: #3a2e2d;        /* Deep espresso brown (Main background) */
+    --bg-panel: #564745;       /* Lighter taupe (For our left & right boxes) */
+    --accent-peach: #d8bea7;   /* The pale peach/tan accent color */
+    --text-light: #f4ede6;     /* Bright off-white for headers and main text */
+    --text-muted: #c8bab0;     /* Darker grey-ish text for subtitles/placeholders */
+    
+    /* Using the Serif font we imported in HTML */
+    --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
+}
+
+/* --- 2. GLOBAL RESET --- 
+   This removes default browser margins so our design is consistent. */
+* {
+    box-sizing: border-box; /* Ensures padding is included in element width */
+    margin: 0;
+    padding: 0;
+}
+
+/* --- 3. BASIC BODY STYLING --- */
+body {
+    font-family: var(--font-serif);
+    background-color: var(--bg-main);
+    color: var(--text-light);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 5rem 3rem;     /* Create breathing room around the edges */
+    display: flex;          /* Centers our app container on the screen */
+    justify-content: center;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;            /* Space between header and the panels */
+}
+
+/* --- 4. HEADER STYLES --- */
+.app-header h1 {
+    font-size: 3rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+}
+
+.app-header p {
+    font-size: 1.25rem;
+    color: var(--text-light);
+}
+
+/* --- 5. DASHBOARD GRID LAYOUT --- 
+   We use CSS Grid to easily place the two panels side-by-side. */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Splits into 2 equal columns */
+    gap: 2.5rem;                    /* Space between columns */
+    align-items: stretch;           /* Makes both columns the same height */
+}
+
+/* --- 6. PANELS (Left & Right Boxes) --- */
+.panel {
+    background-color: var(--bg-panel);
+    border-radius: 2px;             /* Very slight rounding, mostly flat */
+    display: flex;                  
+    flex-direction: column;         /* Stacks contents top-to-bottom */
+    padding: 3rem;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;            /* Aligns the circle icon and text together */
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+/* The circular peach accents matching the slides */
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    background-color: var(--accent-peach);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg-main);          /* Icon draws dark against the light peach */
+}
+
+.panel-header h2 {
+    font-size: 1.7rem;
+    font-weight: 400;
+}
+
+/* --- 7. INPUT AREA (Query Textarea) --- */
+.panel-body {
+    flex: 1; /* Pushes footer down by taking up remaining space */
+    display: flex;
+    flex-direction: column;
+}
+
+textarea {
+    width: 100%;
+    flex: 1;
+    min-height: 350px;
+    background-color: transparent;
+    border: 1px solid rgba(244, 237, 230, 0.2); /* Semi-transparent border */
+    border-radius: 2px;
+    padding: 1.5rem;
+    font-family: var(--font-serif); /* Keep text serif inside the box */
+    font-size: 1.1rem;
+    color: var(--text-light);
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s; /* Smooth glow when clicked */
+}
+
+textarea:focus {
+    border-color: var(--accent-peach);
+}
+
+textarea::placeholder {
+    color: var(--text-muted);
+}
+
+/* --- 8. PRIMARY BUTTON & LOADER --- */
+.panel-footer {
+    margin-top: 2rem;
+}
+
+.primary-btn {
+    background-color: var(--accent-peach);
+    color: var(--bg-main);
+    border: none;
+    padding: 0.9rem 2.8rem;
+    font-size: 1.1rem;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+}
+
+.primary-btn:hover {
+    opacity: 0.9;
+}
+
+.primary-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Utility class to quickly hide things using JS */
+.hidden {
+    display: none !important;
+}
+
+/* CSS Animation for the spinner */
+.loader {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--bg-main);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite; /* Loops forever */
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- 9. RESULTS LIST & JOB CARDS (Ranked Documents) --- */
+.placeholder-state {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+.job-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    max-height: 430px;
+    overflow-y: auto;          /* Allows scrolling if results are too long! */
+    padding-right: 0.5rem;
+}
+
+/* Custom scrollbar for the results list to make it elegant */
+.job-list::-webkit-scrollbar { width: 6px; }
+.job-list::-webkit-scrollbar-thumb { 
+    background-color: var(--text-muted); 
+    border-radius: 3px; 
+}
+
+/* The individual result items */
+.job-card {
+    border: 1px solid rgba(244, 237, 230, 0.2);
+    padding: 1.5rem;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+/* Special spotlight styling for highest ranked job */
+.job-card.top-match {
+    border-color: var(--accent-peach);
+    border-width: 2px;
+}
+
+.top-match-label {
+    align-self: flex-start; /* Keeps the label tight and not full width */
+    color: var(--bg-main);
+    background-color: var(--accent-peach);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.job-title {
+    font-size: 1.35rem;
+    font-weight: 400;
+}
+
+.job-match-score {
+    font-size: 1rem;
+    color: var(--accent-peach);
+    font-style: italic;
+}
+
+.job-desc {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+}
+
+/* Simple text underline to highlight NLP extracted skills */
+.keyword-highlight {
+    color: var(--accent-peach);
+    border-bottom: 1px dashed var(--accent-peach);
+}
