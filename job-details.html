@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+    <div class="app-container detail-container">
+        <a href="dashboard.html" class="back-link">← Return to Ranked Results</a>
+        
+        <main class="panel job-details-panel">
+            <div class="job-header detail-header">
+                <div>
+                    <h1 id="detail-title">Loading...</h1>
+                    <span class="top-match-label" id="detail-score">Match Score: --</span>
+                </div>
+            </div>
+            
+            <div class="panel-body">
+                <h3 class="role-desc-title">Role Description</h3>
+                <p id="detail-desc" class="role-desc-text">
+                    Loading description...
+                </p>
+            </div>
+            
+            <div class="panel-footer apply-footer">
+                <button id="apply-btn" class="primary-btn btn-lg">
+                    Apply Now
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Apply Success Modal -->
+    <div id="success-modal" class="modal hidden">
+        <div class="modal-content panel">
+            <div class="icon-circle modal-icon">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"></path></svg>
+            </div>
+            <h2 class="modal-title">Application Submitted!</h2>
+            <p class="modal-text">
+                Your NLP-optimized resume payload has been successfully forwarded to the employer portal.
+            </p>
+            <button id="close-modal-btn" class="primary-btn btn-block">Return to Dashboard</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // read selected job object from local storage
+            let jobDataStr = localStorage.getItem('selectedJob');
+            
+            if (jobDataStr) {
+                let job = JSON.parse(jobDataStr);
+                
+                document.getElementById('detail-title').textContent = job.title;
+                document.getElementById('detail-score').textContent = 'Match Score: ' + Math.round(job.matchScore * 100) + '%';
+                
+                let highlightedDesc = job.description;
+                if (job.keywords && job.keywords.length > 0) {
+                    for (let kw of job.keywords) {
+                        let regex = new RegExp(`(${kw})`, 'gi');
+                        highlightedDesc = highlightedDesc.replace(regex, `<span class="keyword-highlight">$1</span>`);
+                    }
+                }
+                
+                document.getElementById('detail-desc').innerHTML = highlightedDesc;
+            } else {
+                document.getElementById('detail-title').textContent = "Not Found";
+                document.getElementById('detail-desc').textContent = "No job selected. Go back to the dashboard.";
+            }
+
+            document.getElementById('apply-btn').addEventListener('click', () => {
+                let modal = document.getElementById('success-modal');
+                modal.classList.remove('hidden');
+                modal.style.display = 'flex'; 
+            });
+            
+            document.getElementById('close-modal-btn').addEventListener('click', () => {
+                window.location.href = 'dashboard.html';
+            });
+        });
+    </script>
+</body>
+</html>

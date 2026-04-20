@@ -1,88 +1,102 @@
-<!-- 
-  ========================================================
-  JOB SEARCH PERSONALIZER - FRONTEND
-  This HTML file provides the structure for the app.
-  It is designed to cleanly separate the "Query" (Resume)
-  from the "Results" (Job Matches).
-  ======================================================== 
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Job Search Personalizer</title>
-    
-    <!-- 1. Import a Google Font. "Lora" is a Serif font that beautifully matches our presentation deck. -->
+    <!-- Use our Lora font for consistency -->
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-    
-    <!-- 2. Link our stylesheet to make everything look good -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
-<body>
-    <!-- The main container holding our entire application -->
-    <div class="app-container">
+<body class="landing-body">
+    <!-- Navbar -->
+    <nav class="landing-nav">
+        <div class="nav-brand">
+            <div class="icon-circle nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            </div>
+            Job Search Personalizer
+        </div>
+        <div class="nav-links">
+            <a href="login.html" class="nav-login">Log In</a>
+            <a href="signup.html" class="primary-btn nav-signup">Sign Up</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1>The Problem with Job Searching Today</h1>
+            <p>Job searching is time-consuming and inefficient. Candidates scroll through hundreds of irrelevant postings that don't match their skills or experience, wasting valuable time and missing real opportunities.</p>
+            <p class="hero-subtext">Our Goal: Return highly relevant job postings ranked by similarity using your resume as the starting point.</p>
+            <a href="signup.html" class="primary-btn hero-btn">Get Started Now</a>
+        </div>
+    </header>
+
+    <!-- Why This Matters Section (Grid) -->
+    <section class="features-section">
+        <h2 class="section-title">Why This Matters</h2>
+        <div class="features-grid">
+            <div class="feature-card panel">
+                <div class="feature-icon icon-circle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <h3>Saves Time</h3>
+                <p>Eliminates manual scrolling through hundreds of irrelevant listings so candidates focus on real fits.</p>
+            </div>
+            <div class="feature-card panel">
+                <div class="feature-icon icon-circle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                </div>
+                <h3>Better Matching Accuracy</h3>
+                <p>NLP-driven similarity outperforms simple keyword search, reducing false positives significantly.</p>
+            </div>
+            <div class="feature-card panel">
+                <div class="feature-icon icon-circle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                </div>
+                <h3>Discover Hidden Opportunities</h3>
+                <p>Surfaces relevant roles and candidates that may have never been found through traditional search methods.</p>
+            </div>
+            <div class="feature-card panel">
+                <div class="feature-icon icon-circle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <h3>Improved User Satisfaction</h3>
+                <p>Personalized recommendations lead to a more confident and rewarding job search experience.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works-section">
+        <h2 class="section-title">IR Formalization & Technical Approach</h2>
+        <p class="section-subtitle">Resume = Query | Job Postings = Documents | Output = Ranked List</p>
         
-        <!-- HEADER: Title and short description of our tool -->
-        <header class="app-header">
-            <h1>Job Search Personalizer</h1>
-            <p>Paste your resume to receive personalized job recommendations based on similarity matching.</p>
-        </header>
+        <div class="flow-container">
+            <div class="flow-step panel">
+                <h3>Text Processing</h3>
+                <p>Extract skills, experience, and keywords; clean and normalize job descriptions.</p>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-step panel">
+                <h3>Vector Representation</h3>
+                <p>TF-IDF and Word2Vec / BERT embeddings convert text into comparable numerical form.</p>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-step panel">
+                <h3>Cosine Similarity</h3>
+                <p>Measures semantic closeness between resume vector and each job posting.</p>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-step panel">
+                <h3>Top-N Ranking</h3>
+                <p>Jobs are ranked by relevance score; the highest matches are returned to the user.</p>
+            </div>
+        </div>
+    </section>
 
-        <!-- MAIN GRID: This divides our screen into two equal columns -->
-        <main class="dashboard-grid">
-            
-            <!-- COLUMN 1: The Input Panel (Query) -->
-            <section class="panel input-panel">
-                <div class="panel-header">
-                    <!-- A decorative SVG icon matching our presentation theme -->
-                    <div class="icon-circle">
-                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <h2>Resume Input</h2>
-                </div>
-                
-                <!-- The text area where users actually paste their resume -->
-                <div class="panel-body">
-                    <textarea id="resume-input" placeholder="Paste your raw resume text here..."></textarea>
-                </div>
-                
-                <!-- The submit area containing our primary button -->
-                <div class="panel-footer">
-                    <button id="find-jobs-btn" class="primary-btn">
-                        <!-- We separate the text and the loader so we can hide/show them in Javascript -->
-                        <span class="btn-text">Find Jobs</span>
-                        <span class="loader hidden"></span>
-                    </button>
-                </div>
-            </section>
-
-            <!-- COLUMN 2: The Results Panel (Ranked Recommendations) -->
-            <section class="panel results-panel">
-                <div class="panel-header">
-                    <!-- Target icon representing matching/accuracy -->
-                    <div class="icon-circle">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-                    </div>
-                    <h2>Ranked Documents</h2>
-                </div>
-                
-                <div class="panel-body">
-                    <!-- This placeholder text shows BEFORE the user clicks "Find Jobs" -->
-                    <div id="results-placeholder" class="placeholder-state">
-                        <p>Awaiting input document...</p>
-                    </div>
-                    
-                    <!-- This hidden list will be populated with job cards via JavaScript -->
-                    <div id="job-results" class="job-list hidden">
-                        <!-- Javascript will insert HTML here! -->
-                    </div>
-                </div>
-            </section>
-            
-        </main>
-    </div>
-    
-    <!-- 3. Connect our JavaScript logic (must run after HTML elements exist) -->
-    <script src="script.js"></script>
+    <footer class="landing-footer">
+        <p>&copy; 2026 Job Search Personalizer. Information Retrieval Demo Environment.</p>
+    </footer>
 </body>
 </html>

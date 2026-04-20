@@ -33,14 +33,13 @@ body {
     color: var(--text-light);
     line-height: 1.6;
     min-height: 100vh;
-    padding: 5rem 3rem;     /* Create breathing room around the edges */
-    display: flex;          /* Centers our app container on the screen */
-    justify-content: center;
 }
 
 .app-container {
     width: 100%;
     max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 3rem;
     display: flex;
     flex-direction: column;
     gap: 3.5rem;            /* Space between header and the panels */
@@ -259,4 +258,437 @@ textarea::placeholder {
 .keyword-highlight {
     color: var(--accent-peach);
     border-bottom: 1px dashed var(--accent-peach);
+}
+
+/* --- 10. LOGIN PAGE STYLES --- */
+.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Vertically centers the login card on screen */
+    padding: 2rem;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 450px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--text-light);
+}
+
+.input-group input {
+    background-color: transparent;
+    border: 1px solid rgba(244, 237, 230, 0.2);
+    border-radius: 2px;
+    padding: 1rem;
+    font-family: var(--font-serif);
+    color: var(--text-light);
+    font-size: 1.05rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    border-color: var(--accent-peach);
+}
+
+/* --- 11. JOB DETAILS & MODAL STYLES --- */
+.job-details-panel {
+    padding-top: 2rem; 
+}
+
+.back-link {
+    color: var(--accent-peach);
+    text-decoration: none;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    transition: opacity 0.2s;
+}
+
+.back-link:hover {
+    opacity: 0.8;
+}
+
+/* auth helper classes */
+.auth-header {
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+.auth-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+.btn-block {
+    width: 100%;
+    margin-top: 1rem;
+}
+.auth-footer-text {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+.auth-footer-text a {
+    color: var(--accent-peach);
+}
+
+/* detail UI classes */
+.detail-container {
+    max-width: 800px;
+}
+.detail-header {
+    align-items: center;
+    border-bottom: 1px solid rgba(244, 237, 230, 0.2);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.detail-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+}
+.role-desc-title {
+    margin-bottom: 1rem;
+    color: var(--accent-peach);
+    font-weight: 500;
+}
+.role-desc-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+.apply-footer {
+    margin-top: 3.5rem;
+    justify-content: center;
+}
+.btn-lg {
+    font-size: 1.3rem;
+    padding: 1rem 4rem;
+}
+
+/* Base modal styles */
+.modal {
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0,0,0,0.7); 
+    display: none; 
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.modal-content {
+    max-width: 500px;
+    width: 90%;
+    padding: 3rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6); 
+}
+.modal-icon {
+    margin: 0 auto 1.5rem auto;
+    background-color: #a7d8be;
+    color: var(--bg-main);
+}
+.modal-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+.modal-text {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+}
+
+/* --- 12. SPLIT SCREEN AUTHENTICATION --- */
+.auth-split-layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.auth-banner {
+    flex: 1;
+    background-color: var(--bg-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+    border-right: 1px solid rgba(244, 237, 230, 0.05); /* very subtle divide */
+}
+
+.banner-content {
+    max-width: 500px;
+}
+
+.banner-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 2.5rem;
+}
+
+.auth-banner h2 {
+    font-size: 3.5rem;
+    line-height: 1.25;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+
+.auth-banner p {
+    font-size: 1.3rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.auth-form-container {
+    flex: 1;
+    background-color: var(--bg-panel);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+}
+
+.auth-form-wrapper {
+    width: 100%;
+    max-width: 440px;
+}
+
+.auth-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    margin-top: -1.5rem;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.auth-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.text-link {
+    color: var(--accent-peach);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.text-link:hover {
+    opacity: 0.8;
+}
+
+/* --- 13. LANDING PAGE STYLES --- */
+.landing-body {
+    padding: 0;
+    display: block; /* Override default centered flex layout from body tag */
+}
+
+/* Navbar */
+.landing-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4%;
+    background-color: var(--bg-main);
+    border-bottom: 1px solid rgba(244, 237, 230, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--text-light);
+}
+.nav-icon {
+    width: 40px;
+    height: 40px;
+    background-color: transparent !important;
+    border: 2px solid var(--accent-peach);
+    color: var(--accent-peach) !important;
+}
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.nav-login {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+}
+.nav-login:hover {
+    color: var(--accent-peach);
+}
+.nav-signup {
+    padding: 0.6rem 1.8rem;
+    min-width: auto;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 7rem 4%;
+    text-align: center;
+    background: linear-gradient(180deg, var(--bg-main) 0%, rgba(58, 46, 45, 0.9) 100%);
+    border-bottom: 1px dashed rgba(244, 237, 230, 0.1);
+}
+.hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+.hero-content h1 {
+    font-size: 3.8rem;
+    font-weight: 400;
+    line-height: 1.2;
+}
+.hero-content p {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 800px;
+}
+.hero-subtext {
+    font-size: 1.15rem !important;
+    font-style: italic;
+    color: var(--accent-peach) !important;
+}
+.hero-btn {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+    padding: 1.2rem 3.5rem;
+}
+
+/* Features Section */
+.features-section {
+    padding: 6rem 4%;
+    background-color: var(--bg-panel);
+}
+.section-title {
+    font-size: 2.8rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+.section-subtitle {
+    text-align: center;
+    color: var(--accent-peach);
+    font-size: 1.2rem;
+    margin-top: -2.5rem;
+    margin-bottom: 4rem;
+}
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.feature-card {
+    padding: 3rem 2rem;
+    align-items: flex-start;
+    background-color: var(--bg-main) !important;
+    border: none !important;
+}
+.feature-icon {
+    width: 55px;
+    height: 55px;
+    margin-bottom: 1.8rem;
+}
+.feature-card h3 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+.feature-card p {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* How It Works Flow */
+.how-it-works-section {
+    padding: 6rem 4%;
+    background-color: var(--bg-main);
+}
+.flow-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 1.5rem;
+}
+.flow-step {
+    flex: 1;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    background-color: var(--bg-panel);
+}
+.flow-step h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+.flow-step p {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+.flow-arrow {
+    font-size: 2rem;
+    color: var(--accent-peach);
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+}
+
+/* Footer */
+.landing-footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    background-color: var(--bg-panel);
+    border-top: 1px solid rgba(244, 237, 230, 0.1);
+    color: var(--text-muted);
+    font-size: 1rem;
 }

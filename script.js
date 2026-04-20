@@ -127,6 +127,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="job-desc">${highlightedDesc}</div>
             `;
             
+            // Make the entire card clickable to see details
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', () => {
+                // Save this job to localStorage so the next page can read it
+                localStorage.setItem('selectedJob', JSON.stringify(job));
+                // Navigate to the job details page
+                window.location.href = 'job-details.html';
+            });
+            
             // Stick this completed HTML card into the actual webpage container!
             jobResultsContainer.appendChild(card);
         });
