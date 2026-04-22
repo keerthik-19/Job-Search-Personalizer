@@ -125,6 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="job-match-score">Score: ${(job.matchScore * 100).toFixed(0)}%</div>
                 </div>
                 <div class="job-desc">${highlightedDesc}</div>
+                <div style="margin-top: 1rem; text-align: right;">
+                    <span style="color: var(--accent-peach); font-weight: 500; font-size: 0.95rem;">View & Apply →</span>
+                </div>
             `;
             
             // Make the entire card clickable to see details

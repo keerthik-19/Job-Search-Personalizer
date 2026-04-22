@@ -27,9 +27,14 @@
 }
 
 /* --- 3. BASIC BODY STYLING --- */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 body {
     font-family: var(--font-serif);
-    background-color: var(--bg-main);
+    background: radial-gradient(circle at 50% 0%, #4a3b3a 0%, var(--bg-main) 60%);
     color: var(--text-light);
     line-height: 1.6;
     min-height: 100vh;
@@ -69,10 +74,13 @@ body {
 /* --- 6. PANELS (Left & Right Boxes) --- */
 .panel {
     background-color: var(--bg-panel);
-    border-radius: 2px;             /* Very slight rounding, mostly flat */
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Sleek glass border */
+    border-radius: 6px;             /* Slightly softer corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Deep elegant shadow */
     display: flex;                  
     flex-direction: column;         /* Stacks contents top-to-bottom */
     padding: 3rem;
+    animation: fadeUp 0.6s ease-out backwards; /* Entrance animation */
 }
 
 .panel-header {
@@ -139,6 +147,7 @@ textarea::placeholder {
     background-color: var(--accent-peach);
     color: var(--bg-main);
     border: none;
+    border-radius: 4px; /* Sleek button shape */
     padding: 0.9rem 2.8rem;
     font-size: 1.1rem;
     font-family: var(--font-serif);
@@ -148,10 +157,13 @@ textarea::placeholder {
     align-items: center;
     justify-content: center;
     min-width: 180px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth hover */
+    box-shadow: 0 4px 15px rgba(216, 190, 167, 0.15); /* Peach glow */
 }
 
 .primary-btn:hover {
-    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(216, 190, 167, 0.3);
 }
 
 .primary-btn:disabled {
@@ -207,18 +219,27 @@ textarea::placeholder {
 
 /* The individual result items */
 .job-card {
-    border: 1px solid rgba(244, 237, 230, 0.2);
+    border: 1px solid rgba(244, 237, 230, 0.15);
+    border-radius: 6px;
     padding: 1.5rem;
-    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.02); /* Slight contrast */
     display: flex;
     flex-direction: column;
     gap: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.job-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(216, 190, 167, 0.6);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 /* Special spotlight styling for highest ranked job */
 .job-card.top-match {
     border-color: var(--accent-peach);
     border-width: 2px;
+    background: linear-gradient(180deg, rgba(216, 190, 167, 0.05) 0%, transparent 100%);
 }
 
 .top-match-label {
@@ -576,6 +597,7 @@ textarea::placeholder {
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
+    animation: fadeUp 0.8s ease-out backwards;
 }
 .hero-content h1 {
     font-size: 3.8rem;
@@ -627,8 +649,15 @@ textarea::placeholder {
 .feature-card {
     padding: 3rem 2rem;
     align-items: flex-start;
-    background-color: var(--bg-main) !important;
-    border: none !important;
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 6px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.feature-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-peach) !important;
 }
 .feature-icon {
     width: 55px;

@@ -5,7 +5,7 @@
     <title>Job Search Personalizer</title>
     <!-- Use our Lora font for consistency -->
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body class="landing-body">
     <!-- Navbar -->
@@ -67,33 +67,7 @@
         </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section class="how-it-works-section">
-        <h2 class="section-title">IR Formalization & Technical Approach</h2>
-        <p class="section-subtitle">Resume = Query | Job Postings = Documents | Output = Ranked List</p>
-        
-        <div class="flow-container">
-            <div class="flow-step panel">
-                <h3>Text Processing</h3>
-                <p>Extract skills, experience, and keywords; clean and normalize job descriptions.</p>
-            </div>
-            <div class="flow-arrow">➔</div>
-            <div class="flow-step panel">
-                <h3>Vector Representation</h3>
-                <p>TF-IDF and Word2Vec / BERT embeddings convert text into comparable numerical form.</p>
-            </div>
-            <div class="flow-arrow">➔</div>
-            <div class="flow-step panel">
-                <h3>Cosine Similarity</h3>
-                <p>Measures semantic closeness between resume vector and each job posting.</p>
-            </div>
-            <div class="flow-arrow">➔</div>
-            <div class="flow-step panel">
-                <h3>Top-N Ranking</h3>
-                <p>Jobs are ranked by relevance score; the highest matches are returned to the user.</p>
-            </div>
-        </div>
-    </section>
+
 
     <footer class="landing-footer">
         <p>&copy; 2026 Job Search Personalizer. Information Retrieval Demo Environment.</p>
