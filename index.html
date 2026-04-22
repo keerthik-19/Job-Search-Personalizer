@@ -17,20 +17,82 @@
             Job Search Personalizer
         </div>
         <div class="nav-links">
+            <a href="about.html" class="nav-login">How It Works</a>
+            <a href="pricing.html" class="nav-login">Pricing</a>
             <a href="login.html" class="nav-login">Log In</a>
             <a href="signup.html" class="primary-btn nav-signup">Sign Up</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Split Hero Section -->
     <header class="hero-section">
-        <div class="hero-content">
-            <h1>The Problem with Job Searching Today</h1>
-            <p>Job searching is time-consuming and inefficient. Candidates scroll through hundreds of irrelevant postings that don't match their skills or experience, wasting valuable time and missing real opportunities.</p>
-            <p class="hero-subtext">Our Goal: Return highly relevant job postings ranked by similarity using your resume as the starting point.</p>
-            <a href="signup.html" class="primary-btn hero-btn">Get Started Now</a>
+        <div class="hero-split-container">
+            <!-- Left: Pitch -->
+            <div class="hero-text-content">
+                <div class="hero-badge">AI-Powered Search</div>
+                <h1>Your resume is the only query you need.</h1>
+                <p>Job searching is time-consuming and inefficient. We use advanced NLP to extract your skills and calculate Cosine Similarity against thousands of active job postings.</p>
+                <div class="hero-actions">
+                    <a href="signup.html" class="primary-btn">Create Free Account</a>
+                </div>
+            </div>
+            
+            <!-- Right: Interactive Demo Widget -->
+            <div class="hero-demo-widget panel" id="demo">
+                <div class="demo-header" style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+                    <span style="font-weight: 500; color: var(--accent-peach);">Try it instantly</span>
+                    <div style="display: flex; gap: 4px;">
+                        <span style="width: 8px; height: 8px; border-radius: 50%; background: #ff5f56;"></span>
+                        <span style="width: 8px; height: 8px; border-radius: 50%; background: #ffbd2e;"></span>
+                        <span style="width: 8px; height: 8px; border-radius: 50%; background: #27c93f;"></span>
+                    </div>
+                </div>
+                
+                <div id="demo-input-view">
+                    <textarea id="demo-resume" placeholder="Paste a few sentences of your resume here to test our matching engine..." rows="4" style="min-height: 120px; margin-bottom: 1rem;"></textarea>
+                    <button id="demo-analyze-btn" class="primary-btn" style="width: 100%; padding: 0.8rem;">Analyze & Match</button>
+                </div>
+                
+                <div id="demo-loading-view" class="hidden" style="text-align: center; padding: 2rem 0;">
+                    <div class="loader" style="margin: 0 auto 1rem auto; width: 30px; height: 30px; border-color: var(--accent-peach); border-top-color: transparent;"></div>
+                    <p style="color: var(--accent-peach); font-style: italic;">Vectorizing skills & calculating similarity...</p>
+                </div>
+                
+                <div id="demo-results-view" class="hidden">
+                    <div class="demo-mini-card top-match" style="margin-bottom: 1rem;">
+                        <div class="top-match-label" style="display: inline-block; margin-bottom: 0.5rem; padding: 0.15rem 0.4rem; font-size: 0.7rem;">94% Match</div>
+                        <h4 style="margin-bottom: 0.25rem;">Senior Data Scientist</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">Requires Python, Machine Learning, NLP...</p>
+                    </div>
+                    <div class="demo-mini-card" style="margin-bottom: 1.5rem;">
+                        <div class="top-match-label" style="display: inline-block; margin-bottom: 0.5rem; padding: 0.15rem 0.4rem; font-size: 0.7rem; background-color: var(--text-muted); color: var(--bg-main);">88% Match</div>
+                        <h4 style="margin-bottom: 0.25rem;">Software Engineer (AI)</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">Requires API design, Backend architecture...</p>
+                    </div>
+                    <a href="signup.html" class="primary-btn" style="width: 100%; text-decoration: none; padding: 0.6rem; font-size: 0.95rem;">View Full Results & Apply</a>
+                </div>
+            </div>
         </div>
     </header>
+
+    <!-- Mini Script for Demo Interaction -->
+    <script>
+        document.getElementById('demo-analyze-btn').addEventListener('click', function() {
+            const input = document.getElementById('demo-resume').value;
+            if (!input.trim()) {
+                alert("Please paste a little text first!");
+                return;
+            }
+            
+            document.getElementById('demo-input-view').classList.add('hidden');
+            document.getElementById('demo-loading-view').classList.remove('hidden');
+            
+            setTimeout(() => {
+                document.getElementById('demo-loading-view').classList.add('hidden');
+                document.getElementById('demo-results-view').classList.remove('hidden');
+            }, 1500);
+        });
+    </script>
 
     <!-- Why This Matters Section (Grid) -->
     <section class="features-section">

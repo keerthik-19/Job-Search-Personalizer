@@ -721,3 +721,78 @@ textarea::placeholder {
     color: var(--text-muted);
     font-size: 1rem;
 }
+
+/* --- 14. SPLIT HERO & DEMO WIDGET --- */
+.hero-split-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    text-align: left;
+}
+
+.hero-text-content {
+    animation: fadeUp 0.8s ease-out backwards;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    background: rgba(216, 190, 167, 0.15);
+    color: var(--accent-peach);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(216, 190, 167, 0.3);
+}
+
+.hero-text-content h1 {
+    font-size: 3.8rem;
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+}
+
+.hero-text-content p {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.hero-demo-widget {
+    padding: 2rem;
+    animation: fadeUp 1s ease-out backwards;
+    position: relative;
+    z-index: 10;
+}
+
+.demo-mini-card {
+    border: 1px solid rgba(244, 237, 230, 0.15);
+    border-radius: 6px;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.demo-mini-card.top-match {
+    border-color: var(--accent-peach);
+    background: linear-gradient(180deg, rgba(216, 190, 167, 0.08) 0%, transparent 100%);
+}
+
+@media (max-width: 900px) {
+    .hero-split-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .hero-actions {
+        justify-content: center;
+    }
+}
