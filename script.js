@@ -18,38 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsPlaceholder = document.getElementById('results-placeholder');
     const jobResultsContainer = document.getElementById('job-results');
 
-    // --- 2. MOCK DATA (Simulated AI Results) ---
-    // In a real project, this array would be returned by an API call to your Python backend
-    // after it runs TF-IDF/Word2Vec and Cosine Similarity!
-    const mockJobs = [
-        {
-            title: "Data Analyst",
-            description: "Analyze vast data sets and guide critical business decisions. Work with cross-functional teams.",
-            matchScore: 0.89,
-            keywords: ["data sets", "business"] // Terms our system "thinks" are strong matches
-        },
-        {
-            title: "Software Engineer",
-            description: "Build, design, and maintain scalable software applications for enterprise clients.",
-            matchScore: 0.82,
-            keywords: ["software", "applications"]
-        },
-        {
-            title: "ML Intern",
-            description: "Assist in developing machine learning models and pipelines for text analysis.",
-            matchScore: 0.76,
-            keywords: ["machine learning", "models"]
-        },
-        {
-            title: "Product Manager",
-            description: "Drive product strategy and coordinate engineering delivery timelines.",
-            matchScore: 0.65,
-            keywords: ["product", "strategy"]
-        }
-    ];
+    // --- 2. BACKEND CONFIG ---
+    const API_URL = 'http://localhost:8080/recommend';
 
     // --- 3. HANDLE BUTTON CLICK EVENT ---
-    findJobsBtn.addEventListener('click', () => {
+    findJobsBtn.addEventListener('click', async () => {
         // Step A: Check if the user actually typed a resume. 
         // If empty (.trim() removes accidental spaces), stop and focus the box.
         if (!resumeInput.value.trim()) {
@@ -65,32 +38,72 @@ document.addEventListener('DOMContentLoaded', () => {
         jobResultsContainer.classList.add('hidden'); // Hide any previous job results
         resultsPlaceholder.style.display = 'flex';   // Show "Awaiting input..." 
 
-        // Step C: Artificial Delay
-        // We use setTimeout to pretend the AI model is calculating similarity vectors for 1.2 seconds
-        setTimeout(() => {
-            
-            // Revert the button to its normal state
+        // Step C: Call backend endpoint with resume text
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    resume_text: resumeInput.value.trim(),
+                    top_n: 5
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Request failed with status ${response.status}`);
+            }
+
+            const data = await response.json();
+            const jobs = normalizeJobs(data.results);
+
+            // Revert button state
             findJobsBtn.disabled = false;
             loader.classList.add('hidden');
             btnText.classList.remove('hidden');
 
-            // Hide the "Awaiting input..." text now that we have data!
+            // Hide placeholder and render jobs
             resultsPlaceholder.style.display = 'none';
-            
-            // Trigger the function that draws the jobs onto the screen
-            renderJobs(mockJobs);
-            
-            // Actually reveal the container holding the new jobs
+            renderJobs(jobs);
             jobResultsContainer.classList.remove('hidden');
+        } catch (error) {
+            findJobsBtn.disabled = false;
+            loader.classList.add('hidden');
+            btnText.classList.remove('hidden');
 
-        }, 1200); // 1200 milliseconds = 1.2 seconds
+            const safeApiUrl = API_URL.replace(/"/g, '&quot;');
+            resultsPlaceholder.innerHTML = `<p>Could not fetch results from ${safeApiUrl}. Check backend host/port and that /recommend is reachable.</p>`;
+            resultsPlaceholder.style.display = 'flex';
+            console.error('Recommendation request failed:', error);
+        }
     });
+
+    // Convert backend response shape into existing UI shape
+    function normalizeJobs(results) {
+        if (!Array.isArray(results)) return [];
+        return results.map(job => {
+            const title = job.title || 'Untitled Role';
+            const company = job.company_name || 'Unknown Company';
+            const location = job.location || 'Remote/Unspecified';
+            const score = typeof job.score === 'number' ? job.score : 0;
+            return {
+                title,
+                description: `${company} | ${location}`,
+                matchScore: score,
+                keywords: []
+            };
+        });
+    }
 
     // --- 4. RENDER FUNCTION ---
     // Takes array of job objects and builds HTML cards for each
     function renderJobs(jobs) {
         // Clear out any old results inside the container first
         jobResultsContainer.innerHTML = ''; 
+        if (!jobs.length) {
+            resultsPlaceholder.innerHTML = '<p>No matching jobs found.</p>';
+            resultsPlaceholder.style.display = 'flex';
+            return;
+        }
         
         // Loop through every single job object in our mock data
         jobs.forEach((job, index) => {
