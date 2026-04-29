@@ -43,10 +43,11 @@
                     </div>
                     <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
                         <h2>Resume Input</h2>
-                        <button type="button" class="primary-btn" style="padding: 0.4rem 1rem; font-size: 0.9rem; background-color: rgba(244, 237, 230, 0.05); border: 1px solid rgba(244, 237, 230, 0.3); color: var(--text-light); min-width: auto; cursor: pointer;">
+                        <button type="button" id="upload-file-btn" class="primary-btn" style="padding: 0.4rem 1rem; font-size: 0.9rem; background-color: rgba(244, 237, 230, 0.05); border: 1px solid rgba(244, 237, 230, 0.3); color: var(--text-light); min-width: auto; cursor: pointer;">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 5px; vertical-align: middle;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                             Upload File
                         </button>
+                        <input type="file" id="file-input" accept=".txt" style="display: none;">
                     </div>
                 </div>
                 
@@ -97,6 +98,6 @@
     </div>
     
     <!-- 3. Connect our JavaScript logic (must run after HTML elements exist) -->
-    <script src="script.js"></script>
+    <script src="script.js?v=5"></script>
 </body>
 </html>

@@ -29,11 +29,11 @@
                 <form id="login-form">
                     <div class="input-group">
                         <label>Email Address</label>
-                        <input type="email" placeholder="student@university.edu" required>
+                        <input type="email" id="login-email" placeholder="student@university.edu" required>
                     </div>
                     <div class="input-group">
                         <label>Password</label>
-                        <input type="password" placeholder="••••••••" required>
+                        <input type="password" id="login-password" placeholder="••••••••" required>
                     </div>
                     
                     <div class="auth-actions">
@@ -55,8 +55,28 @@
     <script>
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault(); 
-            // no real backend yet, just redirecting to main view for demo route
-            window.location.href = 'dashboard.html'; 
+            
+            const enteredEmail = document.getElementById('login-email').value;
+            const enteredPassword = document.getElementById('login-password').value;
+            
+            const savedEmail = localStorage.getItem('userEmail');
+            const savedPassword = localStorage.getItem('userPassword');
+            
+            // Validate credentials
+            if (savedEmail && savedPassword) {
+                if (enteredEmail === savedEmail && enteredPassword === savedPassword) {
+                    window.location.href = 'dashboard.html'; 
+                } else {
+                    alert("Invalid email or password. Please try again.");
+                }
+            } else {
+                // Fallback for demo purposes if they haven't signed up yet
+                if (enteredEmail === 'demo@student.edu' && enteredPassword === 'password123') {
+                    window.location.href = 'dashboard.html'; 
+                } else {
+                    alert("Account not found. Please sign up first, or use demo@student.edu / password123.");
+                }
+            }
         });
     </script>
 </body>

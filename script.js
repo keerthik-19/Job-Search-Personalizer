@@ -17,6 +17,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const loader = findJobsBtn.querySelector('.loader');
     const resultsPlaceholder = document.getElementById('results-placeholder');
     const jobResultsContainer = document.getElementById('job-results');
+    
+    // --- FILE UPLOAD LOGIC ---
+    const uploadFileBtn = document.getElementById('upload-file-btn');
+    const fileInput = document.getElementById('file-input');
+
+    if (uploadFileBtn && fileInput) {
+        // When clicking the styled button, trigger the hidden file input
+        uploadFileBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // When a file is selected, read it as text and put it in the textarea
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    resumeInput.value = e.target.result;
+                };
+                reader.readAsText(file);
+            }
+        });
+    }
 
     // --- 2. BACKEND CONFIG ---
     const API_URL = 'http://localhost:8080/recommend';
