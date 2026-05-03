@@ -28,16 +28,48 @@ document.addEventListener('DOMContentLoaded', () => {
             fileInput.click();
         });
 
-        // When a file is selected, read it as text and put it in the textarea
-        fileInput.addEventListener('change', (event) => {
+        // When a file is selected, dispatch to the right parser by extension
+        fileInput.addEventListener('change', async (event) => {
             const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    resumeInput.value = e.target.result;
-                };
-                reader.readAsText(file);
+            if (!file) return;
+
+            const ext = file.name.split('.').pop().toLowerCase();
+
+            try {
+                if (ext === 'txt') {
+                    // Plain-text: original FileReader path
+                    const reader = new FileReader();
+                    reader.onload = (e) => { resumeInput.value = e.target.result; };
+                    reader.readAsText(file);
+
+                } else if (ext === 'pdf') {
+                    // PDF.js: read every page and concatenate
+                    const arrayBuffer = await file.arrayBuffer();
+                    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                    let text = '';
+                    for (let i = 1; i <= pdf.numPages; i++) {
+                        const page = await pdf.getPage(i);
+                        const content = await page.getTextContent();
+                        text += content.items.map(item => item.str).join(' ') + '\n';
+                    }
+                    resumeInput.value = text.trim();
+
+                } else if (ext === 'docx' || ext === 'doc') {
+                    // Mammoth: extract raw text from Word documents
+                    const arrayBuffer = await file.arrayBuffer();
+                    const result = await mammoth.extractRawText({ arrayBuffer });
+                    resumeInput.value = result.value;
+
+                } else {
+                    alert('Unsupported file type. Please upload a .txt, .pdf, .docx, or .doc file.');
+                }
+            } catch (err) {
+                alert('Could not parse the file. Please try a different format or paste your resume directly.');
+                console.error('File parse error:', err);
             }
+
+            // Reset so the same file can be re-selected if needed
+            fileInput.value = '';
         });
     }
 
@@ -77,7 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json();
-            const jobs = normalizeJobs(data.results);
+            // Log raw response so shape mismatches are visible in DevTools
+            console.log('[JobSearch] raw backend response:', data);
+
+            // Try common key names in case the backend uses a different shape
+            const rawList = data.results ?? data.recommendations ?? data.jobs ?? data.data ?? data;
+            const jobs = normalizeJobs(rawList);
 
             // Revert button state
             findJobsBtn.disabled = false;
@@ -102,17 +139,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Convert backend response shape into existing UI shape
     function normalizeJobs(results) {
-        if (!Array.isArray(results)) return [];
+        if (!Array.isArray(results)) {
+            console.warn('[JobSearch] normalizeJobs: expected an array, got:', results);
+            return [];
+        }
         return results.map(job => {
-            const title = job.title || 'Untitled Role';
-            const company = job.company_name || 'Unknown Company';
-            const location = job.location || 'Remote/Unspecified';
-            const score = typeof job.score === 'number' ? job.score : 0;
+            // Title: try multiple common field names
+            const title = job.title || job.name || job.job_title || job.position || 'Untitled Role';
+            // Company: try multiple common field names
+            const company = job.company_name || job.company || job.employer || job.organization || 'Unknown Company';
+            // Location
+            const location = job.location || job.city || 'Remote/Unspecified';
+            // Score: coerce string to number, try alternate keys
+            const rawScore = job.score ?? job.similarity ?? job.match_score ?? job.relevance ?? 0;
+            const score = typeof rawScore === 'number' ? rawScore : parseFloat(rawScore) || 0;
             return {
                 title,
                 description: `${company} | ${location}`,
                 matchScore: score,
-                keywords: []
+                keywords: job.keywords || job.skills || []
             };
         });
     }
